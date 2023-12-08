@@ -5,7 +5,32 @@
 */
 
 function isAnagram(str1, str2) {
+  const data = {};
 
+  if (str1.length !== str2.length) return false;
+
+  for (let i = 0; i < str1.length; i++) {
+    const char = str1[i].toLowerCase();
+    if (data.hasOwnProperty(char)) {
+      data[char] += 1;
+    } else {
+      data[char] = 1;
+    }
+  }
+  
+  for (let i = 0; i < str2.length; i++) {
+    const char = str2[i].toLowerCase();
+    if (data.hasOwnProperty(char)) {
+      data[char] -= 1;
+    } else {
+      return false;
+    }
+  }
+  for (let char in data) {
+    if (data[char] > 0) return false;
+  }
+
+  return true;
 }
 
 module.exports = isAnagram;
